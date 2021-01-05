@@ -34,17 +34,17 @@ See below for the steps taken when your ~/.bashrc is sourced:
 
 The notable extras provided by these dotfiles.
 
-| Command           | Path                       | Functionality                                                                                              |
-| ----------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| refresh           | ./Functions/refresh.sh     | Attempts to reload the bash environment and dotfiles, without opening a new shell. Allows for fast testing |
-| ansible-venvs     | ./Scripts/ansible-venvs.sh | Handles the installation and deinstallation of ansible-specific virtual environments                       |
-| ansiblex.x.x      | ./ansible.sh               | Provides an alias for installed ansible venvs. Please see ansible-venvs for more info                      |
-| ksecret           | ./Scripts/ksecret.sh       | Easily generate K8s generic secrets. Supports generating sealed secrets.                                   |
-| colors            | ./Scripts/colors.sh        | Prints out terminal colors! Mainly for sanity checks                                                       |
-| upper             | ./tr_alias.sh              | Converts stdin to uppercase                                                                                |
-| lower             | ./tr_alias.sh              | Converts stdin to lowercase                                                                                |
-| ldapsearch        | ./alias-general.sh         | Provides an easy way to `ldapsearch` against sunldap.wwt.com                                               |
-| extract           | ./Functions/extract.sh     | Will unzip/untar/unrar/... a given file. Attempts to cover all bases                                       |
-| kdecode           | ./Functions/kdecode.sh     | Decrypt a sealed secret from a given K8s namespace                                                         |
-| ksealr            | ./Functions/ksealr.sh      | Recursively encrypt unsealed K8s secrets.                                                                  |
-| powercli / vmware | ./Functions/powercli.sh    | Drops you into a tempory Docker container with powercli installed                                          |
+| Command           | Path                       | Functionality                                                                         |
+| ----------------- | -------------------------- | ------------------------------------------------------------------------------------- |
+| refresh           | ./Functions/refresh.sh     | Attempts to reload the bash environment and dotfiles, without opening a new shell     |
+| ansible-venvs     | ./Scripts/ansible-venvs.sh | Handles the installation and deinstallation of ansible-specific virtual environments  |
+| ansiblex.x.x      | ./ansible.sh               | Provides an alias for installed ansible venvs. Please see ansible-venvs for more info |
+| ksecret           | ./Scripts/ksecret.sh       | Easily generate K8s generic secrets. Supports generating sealed secrets               |
+| colors            | ./Scripts/colors.sh        | Prints out terminal colors! Mainly for sanity checks                                  |
+| upper             | ./tr_alias.sh              | Converts stdin to uppercase                                                           |
+| lower             | ./tr_alias.sh              | Converts stdin to lowercase                                                           |
+| ldapsearch        | ./alias-general.sh         | Provides an easy way to `ldapsearch` against sunldap.wwt.com                          |
+| extract           | ./Functions/extract.sh     | Will unzip/untar/unrar/... a given file. Attempts to cover all bases                  |
+| kdecode           | ./Functions/kdecode.sh     | Decrypt a sealed secret from a given K8s namespace                                    |
+| ksealr            | ./Functions/ksealr.sh      | Recursively encrypt unsealed K8s secrets.                                             |
+| powercli / vmware | ./Functions/powercli.sh    | Drops you into a tempory Docker container with powercli installed                     |
