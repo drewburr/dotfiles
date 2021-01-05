@@ -66,8 +66,6 @@ while [ "$1" != "" ]; do
                                 ;;
         * )                     args=$args" $1"
                                 check_name $1
-                                #usage
-                                #exit 1
     esac
     shift
 done
