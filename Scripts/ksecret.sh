@@ -76,7 +76,6 @@ done
 
 # If -e is specified, ensure -p is specified
 if [[ $encrypt ]]; then
-    echo "Encrypt is true: $encrypt"
     if [[ -z $path ]]; then
         echo "--encrypt requires --path to be specified."
         exit 1
