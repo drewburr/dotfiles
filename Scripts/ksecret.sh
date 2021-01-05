@@ -15,13 +15,17 @@ function usage() {
         echo "ksecret can be used to create a generic secret."
         echo ""
         echo "Usage:"
+        echo "    # Generate secret and push to stdout"
         echo "    ksecret secret_name -f ./id_rsa -l key=value"
+        echo ""
+        echo "    # Generate sealed secret in the given directory."
+        echo "    ksecret secret_name -l secret=password -p ./path/to/secret/ -e"
         echo ""
         echo "Options:"
         echo "    -f, --file '': File to insert in secret"
         echo "    -l, --literal '': Key and literal value to insert in secret"
-        echo "    -p, --path '': Path to store the generated secret"
-        echo "    -e, --encrypt: Secret will be encrypted after being created. Requires -p"
+        echo "    -p, --path '': Directory path to store the generated secret. File will follow the secret name, with a suffix -unsealed.yaml or -sealed.yaml (if --encrypt is given)"
+        echo "    -e, --encrypt: Secret will be encrypted after being created. Requires: -p"
 }
 
 function check_path() {
