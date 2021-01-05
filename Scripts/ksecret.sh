@@ -93,10 +93,13 @@ else
     else
         # If path is given, create unsealed secret
         $cmd $args > $path/$name-unsealed.yaml
+        secret_path=$path/$name-unsealed.yaml
         # If encrypt is given, seal and delete the unsealed secret
         if [[ $encrypt ]]; then
             kubeseal --controller-namespace=sealed-secrets --controller-name=sealed-secrets --format yaml < $path/$name-unsealed.yaml > $path/$name-sealed.yaml
+            secret_path=$path/$name-sealed.yaml
             rm $path/$name-unsealed.yaml
         fi
+        echo "Secret generated at: $secret_path"
     fi
 fi
