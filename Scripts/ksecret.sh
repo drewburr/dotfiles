@@ -26,6 +26,7 @@ function usage() {
         echo "    -l, --literal '': Key and literal value to insert in secret"
         echo "    -p, --path '': Directory path to store the generated secret. File will follow the secret name, with a suffix -unsealed.yaml or -sealed.yaml (if --encrypt is given)"
         echo "    -e, --encrypt: Secret will be encrypted after being created. Requires: -p"
+        echo "    -n, --namespace '': Namespace to apply to secret."
 }
 
 function check_path() {
@@ -64,6 +65,9 @@ while [ "$1" != "" ]; do
                                 check_path $1
                                 ;;
         -e | --encrypt )        encrypt=1
+                                ;;
+        -n | --namespace )      shift
+                                args=$args" --namespace $1"
                                 ;;
         -h | --help )           usage
                                 exit 0
