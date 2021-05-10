@@ -2,8 +2,6 @@
 # This sets an alias for every script in ~/Source/Scripts/* based on file name
 # The file type suffix is omitted from the alias
 
-alias src='~/Source/Scripts/source_scripts.sh'
-
 for item in $(ls ~/Source/Scripts/*); do
 	# Ensure item is a file
 	if [ -f $item ]; then
