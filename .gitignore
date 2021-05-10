@@ -1,2 +1,2 @@
-./Private/*
-!./Private/README.md
+Private/*
+!Private/README.md
