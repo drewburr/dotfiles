@@ -46,7 +46,7 @@ add_venv() {
     echo "Downloading ansible-$VERSION"
 
     # Attempt to download the given Ansible version
-    pip download ansible==$VERSION --no-deps -d /tmp -q 2> /dev/null
+    python3 -m pip download ansible==$VERSION --no-deps -d /tmp -q 2> /dev/null
 
     # Fail if invalid version
     if [[ $? -eq 1 ]]; then
@@ -55,7 +55,7 @@ add_venv() {
     fi
 
     # Create and source the venv
-    virtualenv -p python $VENV_PATH
+    python3 -m venv $VENV_PATH
     source $VENV_PATH/bin/activate ansible$VERSION
 
     # Add helpful tip to activate file
