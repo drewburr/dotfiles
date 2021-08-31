@@ -1,6 +1,6 @@
 # dotfiles
 
-My personal dotfiles. Currently this is setup to support Bash, as is expecting on MacOS. Most features are likely to work identically on alternate shells/platforms, but I can almost guarentee there will be some initial compatibility issues.
+My personal dotfiles. Currently this is setup to support Bash, as is expected to be used on MacOS. Most features are likely to work identically on alternate shells/platforms, but I can almost guarentee there will be some initial compatibility issues.
 
 ## Setup
 
@@ -45,7 +45,6 @@ The notable extras provided by these dotfiles.
 | colors            | ./Scripts/colors.sh        | Prints out terminal colors! Mainly for sanity checks                                  |
 | upper             | ./tr_alias.sh              | Converts stdin to uppercase                                                           |
 | lower             | ./tr_alias.sh              | Converts stdin to lowercase                                                           |
-| ldapsearch        | ./alias-general.sh         | Provides an easy way to `ldapsearch` against sunldap.wwt.com                          |
 | extract           | ./Functions/extract.sh     | Will unzip/untar/unrar/... a given file. Attempts to cover all bases                  |
 | kdecode           | ./Functions/kdecode.sh     | Decrypt a sealed secret from a given K8s namespace                                    |
 | ksealr            | ./Functions/ksealr.sh      | Recursively encrypt unsealed K8s secrets.                                             |
