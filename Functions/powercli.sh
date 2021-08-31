@@ -4,7 +4,7 @@
 
 # powercli container
 function vmware() {
-    local_volume='/Users/browndr/Projects/docker/vmware-powerclicore'
+    local_volume='$HOME/Projects/docker/vmware-powerclicore'
     container_volume='/usr/scripts'
 
     echo Local files: $local_volume

@@ -1,4 +1,4 @@
-# browndr-dotfiles
+# dotfiles
 
 My personal dotfiles. Currently this is setup to support Bash, as is expecting on MacOS. Most features are likely to work identically on alternate shells/platforms, but I can almost guarentee there will be some initial compatibility issues.
 
