@@ -4,7 +4,7 @@
 
 namespace=""
 workload=""
-cmd="/bin/sh"
+cmd="/bin/bash"
 
 function usage() {
         echo "kexec can be used to execute a command into a kubernetes workload."
