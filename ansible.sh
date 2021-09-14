@@ -2,7 +2,7 @@
 
 #### Ansible venvs ####
 
-mkdir -p /home/drewburr/.ansible/venvs
+mkdir -p ~/.ansible/venvs
 for item in $(ls $HOME/.ansible/venvs); do
 	# Setup CMD
     venv_path="$HOME/.ansible/venvs/$item/bin/activate"
