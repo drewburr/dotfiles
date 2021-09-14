@@ -1,6 +1,7 @@
 #!/bin/bash
 # Sources every file at the root of ./Private/
 
+mkdir -p ~/Source/Private/
 for item in $(ls ~/Source/Private/*.sh); do
 	# Ensure path is a file
 	if [ -f $item ]; then
