@@ -8,11 +8,11 @@ To utilize this entire repository, clone and move the repository to `~/Source`. 
 
 ```bash
 # For every item at the root of ~/Source
-for item in $(find ~/Source -name "*.sh" -d 1); do
-        # Make it executable
-        chmod +x $item
-        # Source it
-        source $item
+for item in $(find ~/Source -maxdepth 1 -name "*.sh"); do
+  # Make it executable
+  chmod +x $item
+  # Source it
+  source $item
 done
 ```
 
