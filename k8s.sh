@@ -13,6 +13,8 @@ alias kns='kubens'
 alias kctx='kubectx'
 alias kcd='kubectx; kubens; kls'
 
+# Autocompletion for k alias
+complete -F __start_kubectl k
 
 # Configure the KUBECONFIG environment variable
 KUBECONFIGS_PATH="$HOME/.kube/configs"
