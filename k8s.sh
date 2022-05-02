@@ -15,6 +15,7 @@ alias k='kubectl'
 alias kns='kubens'
 alias kctx='kubectx'
 alias kcd='kubectx; kubens; kls'
+alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.allocatable.cpu,MEMORY:.status.allocatable.memory,STORAGE:.status.allocatable.ephemeral-storage,Unschedulable:.spec.unschedulable -l=node-role.kubernetes.io/worker=true --sort-by={.metadata.name}'
 
 # Autocompletion for k alias
 complete -F __start_kubectl k
