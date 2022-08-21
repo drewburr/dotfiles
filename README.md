@@ -49,3 +49,16 @@ The notable extras provided by these dotfiles.
 | kdecode           | ./Functions/kdecode.sh     | Decrypt a sealed secret from a given K8s namespace                                    |
 | ksealr            | ./Functions/ksealr.sh      | Recursively encrypt unsealed K8s secrets.                                             |
 | powercli / vmware | ./Functions/powercli.sh    | Drops you into a tempory Docker container with powercli installed                     |
+
+## Packages to install
+
+This repo makes use of the following packages, with most being optional
+
+### Homebrew
+
+ansible
+chruby
+kubectl
+kubectx
+nvm
+visual-studio-code
