@@ -8,3 +8,6 @@ PATH=$PATH:$HOME/Library/Python/3.7/bin
 
 # Oracle Instant Client
 PATH=$PATH:$HOME/Library/instantclient_19_3
+
+# libpq (psql)
+PATH=$PATH:/usr/local/opt/libpq/bin
