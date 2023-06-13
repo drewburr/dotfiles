@@ -22,16 +22,16 @@ alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.alloc
 # Autocompletion for k alias
 complete -F __start_kubectl k
 
-# Configure the KUBECONFIG environment variable
-KUBECONFIGS_PATH="$HOME/.kube/configs"
-BASE_KUBECONFIG_PATH="$HOME/.kube/config"
-KUBECONFIG=""
-if [ -d "$KUBECONFIGS_PATH" ]; then
-    if [ -f "$BASE_KUBECONFIG_PATH" ]; then
-        KUBECONFIG="$BASE_KUBECONFIG_PATH"
-    fi
-    for item in $(ls $KUBECONFIGS_PATH); do
-        KUBECONFIG="$KUBECONFIG:$KUBECONFIGS_PATH/$item"
-    done
-    export KUBECONFIG="$(echo $KUBECONFIG | sed 's/^://')"
-fi
+# # Configure the KUBECONFIG environment variable
+# KUBECONFIGS_PATH="$HOME/.kube/configs"
+# BASE_KUBECONFIG_PATH="$HOME/.kube/config"
+# KUBECONFIG=""
+# if [ -d "$KUBECONFIGS_PATH" ]; then
+#     if [ -f "$BASE_KUBECONFIG_PATH" ]; then
+#         KUBECONFIG="$BASE_KUBECONFIG_PATH"
+#     fi
+#     for item in $(ls $KUBECONFIGS_PATH); do
+#         KUBECONFIG="$KUBECONFIG:$KUBECONFIGS_PATH/$item"
+#     done
+#     export KUBECONFIG="$(echo $KUBECONFIG | sed 's/^://')"
+# fi
