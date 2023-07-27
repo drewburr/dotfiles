@@ -22,6 +22,9 @@ alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.alloc
 # Autocompletion for k alias
 complete -F __start_kubectl k
 
+# Colorization for `kubectl diff`
+export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
+
 # # Configure the KUBECONFIG environment variable
 # KUBECONFIGS_PATH="$HOME/.kube/configs"
 # BASE_KUBECONFIG_PATH="$HOME/.kube/config"
