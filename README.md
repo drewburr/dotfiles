@@ -4,10 +4,10 @@ My personal dotfiles. Currently this is setup to support Bash, as is expected to
 
 ## Setup
 
-To utilize this entire repository, clone and move the repository to `~/Source`. Afterwards, you'll want to append the below script to your `~/.bashrc` file.
+To utilize this entire repository, clone and store in a safe location (example: `~/dotfiles`). Afterwards, append the below script to your `~/.bashrc` file.
 
 ```bash
-# For every item at the root of ~/Source
+dotfiles_path=~/dotfiles # Change this if needed
 for item in $(find ~/Source -maxdepth 1 -name "*.sh"); do
   # Make it executable
   chmod +x $item
@@ -16,7 +16,7 @@ for item in $(find ~/Source -maxdepth 1 -name "*.sh"); do
 done
 ```
 
-Everything in this repository is designed to be modular. Don't need something? Remove it! Need something new? Just add a file in the proper location! Check the features list below for how the repo operates.
+Everything in this repository is designed to be modular. Don't need something? Remove it! Need something new? Add a file in! Check the features list below for how the repo operates, to determine how changes should be made.
 
 ## Features
 
