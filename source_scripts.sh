@@ -1,8 +1,8 @@
 #!/bin/bash
-# This sets an alias for every script in ~/Source/Scripts/* based on file name
+# This sets an alias for every script in $DOTFILES_PATH/Scripts/* based on file name
 # The file type suffix is omitted from the alias
 
-for item in $(ls ~/Source/Scripts/*); do
+for item in $(ls $DOTFILES_PATH/Scripts/*); do
 	# Ensure item is a file
 	if [ -f $item ]; then
 		# Ensure file is executable

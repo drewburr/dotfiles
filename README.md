@@ -7,8 +7,8 @@ My personal dotfiles. Currently this is setup to support Bash, as is expected to
 To utilize this entire repository, clone and store in a safe location (example: `~/dotfiles`). Afterwards, append the below script to your `~/.bashrc` file.
 
 ```bash
-dotfiles_path=~/dotfiles # Change this if needed
-for item in $(find ~/Source -maxdepth 1 -name "*.sh"); do
+export DOTFILES_PATH=~/dotfiles # Change this if needed
+for item in $(find $DOTFILES_PATH -maxdepth 1 -name "*.sh"); do
   # Make it executable
   chmod +x $item
   # Source it

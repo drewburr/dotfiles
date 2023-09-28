@@ -1,8 +1,8 @@
 #!/bin/bash
 # Sources every file at the root of ./Private/
 
-mkdir -p ~/Source/Private/
-for item in $(find ~/Source/Private/ -maxdepth 1 -name "*.sh"); do
+mkdir -p $DOTFILES_PATH/Private/
+for item in $(find $DOTFILES_PATH/Private/ -maxdepth 1 -name "*.sh"); do
 	# Ensure path is a file
 	if [ -f $item ]; then
 		# Ensure file is executable
