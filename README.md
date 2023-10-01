@@ -62,3 +62,7 @@ kubectl
 kubectx
 nvm
 visual-studio-code
+jq
+bash-completion
+fzf
+yarn
