@@ -7,13 +7,15 @@ export PS1=$DEFAULT_PS1
 # zsh
 # export PS1="%n@localhost %1~ %# "
 
-function get_namespace() {
-  echo $(kubens -c)
+function get_cluster() {
+  kubectl config view | yq '.current-context'
 }
 
-function get_cluster() {
-  echo $(kubectl config current-context)
+
+function get_namespace() {
+  kubectl config view | yq --expression ".contexts[].context | select(.cluster == \"$(get_cluster)\") | .namespace"
 }
+
 
 KUBEPS1_PATH="/usr/local/opt/kube-ps1/share/kube-ps1.sh"
 if [[ -f $KUBEPS1_PATH ]]; then
