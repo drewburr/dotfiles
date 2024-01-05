@@ -1,11 +1,17 @@
 #!/bin/bash
 
+HOMEBREW_PATH="$(which brew)"
+
 # Required for Jekyll builds
 # https://jekyllrb.com/docs/installation/macos/
-if [[ ! -z $(which brew) ]]; then
-    if [[ -d $(brew --prefix)/opt/chruby/share/chruby ]]; then
-        source $(brew --prefix)/opt/chruby/share/chruby/chruby.sh
-        source $(brew --prefix)/opt/chruby/share/chruby/auto.sh
-        chruby ruby-3.1.2
-    fi
+
+if [[ -d $(echo $HOMEBREW_PATH | sed 's/\/bin\/brew//')/opt/chruby/share/chruby ]]; then
+    # Activating Chruby is expensive. Use wrapper function to only load when needed
+    function chruby_enable() {
+        echo "Enabling Chruby..."
+        source $(echo $HOMEBREW_PATH | sed 's/\/bin\/brew//')/opt/chruby/share/chruby/chruby.sh
+        source $(echo $HOMEBREW_PATH | sed 's/\/bin\/brew//')/opt/chruby/share/chruby/auto.sh
+        # chruby ruby-3.1.2
+        echo "Chruby is ready."
+    }
 fi
