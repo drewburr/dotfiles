@@ -19,7 +19,7 @@ alias kctx='kubectx'
 alias kcd='kubectx; kubens; kls'
 alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.allocatable.cpu,MEMORY:.status.allocatable.memory,STORAGE:.status.allocatable.ephemeral-storage,Unschedulable:.spec.unschedulable -l=node-role.kubernetes.io/worker=true --sort-by={.metadata.name}'
 
-if [ $(which kubecolor) ]; then
+if [ $(command -v kubecolor) ]; then
     alias kubectl='kubecolor'
 fi
 

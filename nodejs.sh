@@ -1,7 +1,7 @@
 #/bin/bash
 
 export PATH="/usr/local/opt/node@14/bin:$PATH"
-HOMEBREW_PATH="$(which brew)"
+HOMEBREW_PATH="$(command -v brew)"
 
 # nvm setup, reccommended by homebrew
 if [[ -d $(echo $HOMEBREW_PATH | sed 's/\/bin\/brew//')/opt/nvm/ ]]; then

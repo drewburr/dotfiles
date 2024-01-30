@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOMEBREW_PATH="$(which brew)"
+HOMEBREW_PATH="$(command -v brew)"
 
 # Required for Jekyll builds
 # https://jekyllrb.com/docs/installation/macos/
