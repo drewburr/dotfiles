@@ -12,3 +12,6 @@ PATH=$PATH:$HOME/Library/instantclient_19_3
 
 # libpq (psql)
 PATH=$PATH:/usr/local/opt/libpq/bin
+
+# coreutils
+PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
