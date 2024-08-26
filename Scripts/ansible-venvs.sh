@@ -9,8 +9,10 @@ ansible-venvs <command> [options]
 
 Commands:
 add <version>           Install a new virtual environment.
+list                    List installed virtual environments.
 remove <version>        Remove an existing virtual environment.
 reinstall <version>     Full reinstall of an existing venv
+use                     Activate an installed virtual environment.
 help                    Show help.
 
 Note: The version value utilized as 'pip install ansible==<version>' and will determine the name of the virtual enviromnment
@@ -26,6 +28,9 @@ setup_vars() {
         echo "Ansible version must be specified."
         exit 1
     fi
+
+    # Remove 'ansible' prefix, if supplied
+    VERSION=${VERSION#ansible*}
 
     VENV_HOME="$HOME/.ansible/venvs"
     VENV_NAME=ansible$VERSION
@@ -61,7 +66,7 @@ add_venv() {
     # Add helpful tip to activate file
     echo "echo \"Run 'deactivate' to exit virtual environment..\"" >> "$VENV_PATH/bin/activate"
     # Update python settings for ansible
-    echo "export ANSIBLE_PYTHON_INTERPRETER='$(which python)'" >> "$VENV_PATH/bin/activate"
+    echo "export ANSIBLE_PYTHON_INTERPRETER='$(command -v python)'" >> "$VENV_PATH/bin/activate"
 
     # Install Ansible
     pip install ansible==$VERSION
@@ -84,16 +89,30 @@ remove_venv() {
     fi
 }
 
+list_venv() {
+    setup_vars
+
+    echo $(ls $VENV_HOME)
+}
+
+use_venv() {
+    source $VENV_PATH/bin/activate
+}
+
 # Start Script
 VERSION=$2
 
 case $1 in
     add )       add_venv
                 ;;
+    list )      list_venv
+                ;;
     remove )    remove_venv
                 ;;
     reinstall ) remove_venv
                 add_venv
+                ;;
+    use )       use_venv
                 ;;
     help | "" ) usage
                 ;;

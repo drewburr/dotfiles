@@ -2,13 +2,13 @@
 
 #### Ansible venvs ####
 
-mkdir -p ~/.ansible/venvs
-for item in $(ls $HOME/.ansible/venvs); do
-	# Setup CMD
-    venv_path="$HOME/.ansible/venvs/$item/bin/activate"
-    # Set alias
-	alias $item="source $venv_path"
-done
+# mkdir -p ~/.ansible/venvs
+# for item in $(ls $HOME/.ansible/venvs); do
+# 	# Setup CMD
+#     venv_path="$HOME/.ansible/venvs/$item/bin/activate"
+#     # Set alias
+# 	alias $item="source $venv_path"
+# done
 
 #### Variables needed for Ansible ####
 
