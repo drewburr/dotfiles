@@ -15,3 +15,6 @@ PATH=$PATH:/usr/local/opt/libpq/bin
 
 # coreutils
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+# GO
+PATH="$(go env GOPATH)/bin:$PATH"
