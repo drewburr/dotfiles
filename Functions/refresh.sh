@@ -5,5 +5,7 @@ refresh() {
     unalias -a
 
     # Re-source everything
-    source ~/.bashrc
+    # source ~/.bashrc
+    source ~/.zshrc
+    source ~/.zprofile
 }
