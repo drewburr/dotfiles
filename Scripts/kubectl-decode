@@ -1,10 +1,25 @@
 #!/bin/bash
 
 function help() {
-    echo "kubectl decode will decode a secret's contents and display them in cleartext."
-    echo ""
-    echo "Usage:"
-    echo "    kubectl decode [-n namespace] secret-name"
+    cat << EOF
+Get a secret and decode the data object. Will show secrets in cleartext.
+
+Requirements:
+    yq or jq must be installed. Default behavior is to prefer yq.
+
+Examples:
+    # Decode a secret
+    kubectl decode secret-name
+
+    # Decode a secret and display as YAML (Default)
+    kubectl decode -o yaml secret-name
+
+    # Decode a secret and display as JSON
+    kubectl decode -o json secret-name
+
+    # Decode a secret in an alternate namespace
+    kubectl decode -n namespace secret-name
+EOF
 }
 
 function kubectl_decode() {
@@ -39,7 +54,9 @@ function jq_decode() {
     kubectl get secret -o json $@ | jq '.data |= map_values(@base64d)'
 }
 
-if [[ "$*" == "--help" || "$*" == "-h" || -z $1 ]]; then
+echo "$*"
+
+if [[ "$*" == *" --help"* || "$*" == *" -h"* || -z $1 ]]; then
     help
     exit 0
 fi
