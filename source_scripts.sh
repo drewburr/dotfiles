@@ -7,10 +7,8 @@ for item in $(ls $DOTFILES_PATH/Scripts/*); do
     if [ -f $item ]; then
         # Ensure file is executable
         chmod +x $item
-        # Strip file extension
-        filename=$(basename $item)
-        cmd=${filename%\.*}
-        # Set alias
-        alias $cmd="$item"
     fi
 done
+
+# Add scripts to PATH
+export PATH="$PATH:$DOTFILES_PATH/Scripts"
