@@ -1,0 +1,49 @@
+#!/bin/bash
+
+function kubectl_decode()  {
+    func=''
+    args=$(echo "$@" | awk '$1=$1')
+
+    # Check for -o flag first
+    if [[ "$args" == *"-oyaml"* || "$args" == *"-o yaml"* ]]; then
+        func=yq_decode
+    elif [[ "$args" == *"-ojson"* || "$args" == *"-o json"* ]]; then
+        func=jq_decode
+    # Determine parser by installation
+    elif command -v yq >/dev/null 2>&1; then
+        func=yq_decode
+    elif command -v jq >/dev/null 2>&1; then
+        func=jq_decode
+    fi
+
+    if [[ -z ${func:+x} ]]; then
+        echo "Error! Unable to find parser. Please install either jq or yq."
+        exit 1
+    fi
+
+    $func $args
+}
+
+function yq_decode() {
+
+    kubectl get secret -o yaml $@ | yq '.data.[] |= @base64d'
+}
+
+function jq_decode() {
+    kubectl get secret -o json $@ | jq '.data |= map_values(@base64d)'
+}
+
+function help() {
+    echo "kubectl decode will decode a secret's contents and display them in cleartext."
+    echo ""
+    echo "Usage:"
+    echo "    kubectl decode [-n namespace] secret-name"
+}
+
+if [[ "$*" == "--help" || "$*" == "-h" || -z $1 ]]; then
+    help
+    exit 0
+fi
+
+echo "$@"
+kubectl_decode $@
