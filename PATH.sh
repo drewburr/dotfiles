@@ -17,7 +17,9 @@ PATH=$PATH:/usr/local/opt/libpq/bin
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 # GO
-PATH="$(go env GOPATH)/bin:$PATH"
+if command -v go &> /dev/null; then
+    PATH="$(go env GOPATH)/bin:$PATH"
+fi
 
 # Local bin
 PATH=$PATH:$HOME/.bin
