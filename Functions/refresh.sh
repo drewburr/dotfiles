@@ -4,8 +4,18 @@ refresh() {
     # Clear every alias
     unalias -a
 
-    # Re-source everything
-    # source ~/.bashrc
-    source ~/.zshrc
-    source ~/.zprofile
+    # Re-source everything based on current shell
+    case "$SHELL" in
+        */zsh)
+            source ~/.zshrc
+            source ~/.zprofile
+            ;;
+        */bash)
+            source ~/.bashrc
+            # source ~/.bash_profile
+            ;;
+        *)
+            echo "Unknown shell: $SHELL"
+            ;;
+    esac
 }
