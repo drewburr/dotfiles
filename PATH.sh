@@ -21,3 +21,4 @@ PATH="$(go env GOPATH)/bin:$PATH"
 
 # Local bin
 PATH=$PATH:$HOME/.bin
+PATH=$PATH:$HOME/.local/bin
