@@ -53,8 +53,8 @@ function yq_decode() {
 function jq_decode() {
     kubectl get secret -o json $@ | jq '.data |= map_values(@base64d)'
 }
-
-echo "$*"
+# cd ~/
+# echo "$*"
 
 if [[ "$*" == *" --help"* || "$*" == *" -h"* || -z $1 ]]; then
     help
