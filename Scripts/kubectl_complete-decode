@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Provide tab-completion for `kubectl decode` by reusing
+# the completion for `kubectl get secret`.
+# Requires kubectl >= 1.26 plugin completion support.
+#
+# kubectl passes the remaining args after stripping the binary
+# and subcommand, e.g. for `kubectl decode -n <TAB>`:
+#   kubectl_complete-decode -n
+# We transform it to:
+#   kubectl __complete get secret -n ""
+
+kubectl __complete get secret "$@"
