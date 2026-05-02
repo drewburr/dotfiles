@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # # bash
-# DEFAULT_PS1="\[\033[01;32m\]\u@localhost\[\033[01;34m\] \W\[\033[00m\] "
-# export PS1=$DEFAULT_PS1
+if [ -n "$BASH_VERSION" ]; then
+    DEFAULT_PS1="\[\033[01;32m\]\u@localhost\[\033[01;34m\] \W\[\033[00m\] "
+    export PS1=$DEFAULT_PS1
+fi
 
 # # zsh
 # # export PS1="%n@localhost %1~ %# "
