@@ -6,11 +6,33 @@
 # OR
 # chsh -s /usr/local/bin/bash
 
+# Source bash-completion if not already loaded
+if [[ -z ${BASH_COMPLETION_VERSINFO-} ]]; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /usr/local/etc/profile.d/bash_completion.sh ]; then
+        . /usr/local/etc/profile.d/bash_completion.sh
+    elif [ -f /etc/profile.d/bash_completion.sh ]; then
+        . /etc/profile.d/bash_completion.sh
+    fi
+fi
+
+# Load bash-completion compat directory for deprecated functions
+if [ -d /etc/bash_completion.d ]; then
+    for file in /etc/bash_completion.d/*; do
+        [ -f "$file" ] && . "$file"
+    done
+fi
+
+# Set compat dir for macOS compatibility
 if [[ -z $BASH_COMPLETION_COMPAT_DIR ]]; then
     export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 fi
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-source <(kubectl completion bash)
+
+# Load kubectl completion using the actual binary (not alias)
+if command -v kubectl &> /dev/null; then
+    source <(command kubectl completion bash)
+fi
 
 # Aliases
 alias k='kubectl'
@@ -19,8 +41,10 @@ alias kctx='kubectx'
 alias kcd='kubectx; kubens; kls'
 alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.allocatable.cpu,MEMORY:.status.allocatable.memory,STORAGE:.status.allocatable.ephemeral-storage,Unschedulable:.spec.unschedulable -l=node-role.kubernetes.io/worker=true --sort-by={.metadata.name}'
 
-if [ $(command -v kubecolor) ]; then
+if command -v kubecolor &> /dev/null; then
     alias kubectl='kubecolor'
+    # Also set up completion for kubecolor
+    complete -o default -F __start_kubectl kubecolor
 fi
 
 # Autocompletion for k alias
