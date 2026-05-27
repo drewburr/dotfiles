@@ -66,3 +66,7 @@ jq
 bash-completion
 fzf
 yarn
+
+# TODO:
+
+Move shell-based dotfiles to a `./Shell` subdirectory and conditionally source based on `echo $SHELL | awk -F '/' '{print $NF}'`

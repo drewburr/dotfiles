@@ -15,8 +15,6 @@ ocl() {
     if [[ $? -eq 0 ]]; then
       return 0
     fi
-    # Remove stale entry before re-prompting
-    security delete-generic-password -a "$user" -s "$keychain_service" &>/dev/null
   fi
 
   # Resolve cluster URL from args or current kubeconfig
@@ -25,13 +23,15 @@ ocl() {
   echo "Authentication required for ${server:-unknown server}"
 
   # Prompt for password
-  read -rs "password?Password for $user: "
+  local new_password
+  read -rs "new_password?Password for $user: "
   echo
 
-  oc login -u "$user" -p "$password" "$@"
+  oc login -u "$user" -p "$new_password" "$@"
   if [[ $? -eq 0 ]]; then
-    # Cache the password in Keychain
-    security add-generic-password -a "$user" -s "$keychain_service" -w "$password"
+    # Replace cached password only after a successful login with the new one
+    security delete-generic-password -a "$user" -s "$keychain_service" &>/dev/null
+    security add-generic-password -a "$user" -s "$keychain_service" -w "$new_password"
   else
     return 1
   fi

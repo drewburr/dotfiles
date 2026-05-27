@@ -48,7 +48,7 @@ if command -v kubecolor &> /dev/null; then
 fi
 
 # Autocompletion for k alias
-complete -F __start_kubectl k
+# complete -F __start_kubectl k
 
 # Colorization for `kubectl diff`
 export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
