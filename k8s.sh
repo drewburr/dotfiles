@@ -6,8 +6,8 @@
 # OR
 # chsh -s /usr/local/bin/bash
 
-# Source bash-completion if not already loaded
-if [[ -z ${BASH_COMPLETION_VERSINFO-} ]]; then
+# Source bash-completion if not already loaded (bash only)
+if [[ -n ${BASH_VERSION-} ]] && [[ -z ${BASH_COMPLETION_VERSINFO-} ]]; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
         . /usr/share/bash-completion/bash_completion
     elif [ -f /usr/local/etc/profile.d/bash_completion.sh ]; then
@@ -29,9 +29,17 @@ if [[ -z $BASH_COMPLETION_COMPAT_DIR ]]; then
     export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
 fi
 
-# Load kubectl completion using the actual binary (not alias)
+# Load kubectl completion using the actual binary (not alias).
+# Use the completion script matching the current shell; zsh chokes on the
+# bash script (it uses `type -t`, which zsh's `type` doesn't support).
 if command -v kubectl &> /dev/null; then
-    source <(command kubectl completion bash)
+    if [[ -n ${ZSH_VERSION-} ]]; then
+        autoload -Uz +X compinit && compinit 2>/dev/null
+        autoload -Uz +X bashcompinit && bashcompinit 2>/dev/null
+        source <(command kubectl completion zsh)
+    else
+        source <(command kubectl completion bash)
+    fi
 fi
 
 # Aliases
@@ -44,7 +52,11 @@ alias knodes='k get node -o custom-columns=NAME:.metadata.name,CPU:.status.alloc
 if command -v kubecolor &> /dev/null; then
     alias kubectl='kubecolor'
     # Also set up completion for kubecolor
-    complete -o default -F __start_kubectl kubecolor
+    if [[ -n ${ZSH_VERSION-} ]]; then
+        compdef kubecolor=kubectl
+    else
+        complete -o default -F __start_kubectl kubecolor
+    fi
 fi
 
 # Autocompletion for k alias
