@@ -5,6 +5,14 @@ ocl() {
   user="$(whoami)1"
   local keychain_service="ocl"
 
+  # If already logged in as the expected user, nothing to do
+  if [[ "$(oc whoami 2>/dev/null)" == "$user" ]]; then
+    local current_server
+    current_server=$(oc whoami --show-server 2>/dev/null)
+    echo "Already logged in to ${current_server:-cluster} as $user"
+    return 0
+  fi
+
   # Try to get cached password from macOS Keychain
   local password
   password=$(security find-generic-password -a "$user" -s "$keychain_service" -w 2>/dev/null)
