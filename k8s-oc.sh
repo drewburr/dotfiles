@@ -5,12 +5,25 @@ ocl() {
   user="$(whoami)1"
   local keychain_service="ocl"
 
-  # If already logged in as the expected user, nothing to do
+  # Determine the requested server from args (first URL-looking argument)
+  local requested_server
+  local arg
+  for arg in "$@"; do
+    if [[ "$arg" == http://* || "$arg" == https://* ]]; then
+      requested_server="$arg"
+      break
+    fi
+  done
+
+  # If already logged in as the expected user, nothing to do.
+  # When a server was requested, only skip if it matches the current one.
   if [[ "$(oc whoami 2>/dev/null)" == "$user" ]]; then
     local current_server
     current_server=$(oc whoami --show-server 2>/dev/null)
-    echo "Already logged in to ${current_server:-cluster} as $user"
-    return 0
+    if [[ -z "$requested_server" || "$current_server" == "$requested_server" ]]; then
+      echo "Already logged in to ${current_server:-cluster} as $user"
+      return 0
+    fi
   fi
 
   # Try to get cached password from macOS Keychain
