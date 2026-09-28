@@ -1,5 +1,23 @@
 #!/bin/bash
 
+# Password cache helpers: macOS Keychain, or libsecret (secret-tool) on Linux
+_ocl_secret_get() {
+  if command -v security &>/dev/null; then
+    security find-generic-password -a "$1" -s "$2" -w 2>/dev/null
+  elif command -v secret-tool &>/dev/null; then
+    secret-tool lookup service "$2" account "$1" 2>/dev/null
+  fi
+}
+
+_ocl_secret_set() {
+  if command -v security &>/dev/null; then
+    security delete-generic-password -a "$1" -s "$2" &>/dev/null
+    security add-generic-password -a "$1" -s "$2" -w "$3"
+  elif command -v secret-tool &>/dev/null; then
+    printf '%s' "$3" | secret-tool store --label="$2 ($1)" service "$2" account "$1"
+  fi
+}
+
 ocl() {
   local user
   user="$(whoami)1"
@@ -26,9 +44,9 @@ ocl() {
     fi
   fi
 
-  # Try to get cached password from macOS Keychain
+  # Try to get cached password from macOS Keychain / libsecret
   local password
-  password=$(security find-generic-password -a "$user" -s "$keychain_service" -w 2>/dev/null)
+  password=$(_ocl_secret_get "$user" "$keychain_service")
 
   if [[ -n "$password" ]]; then
     # Attempt login with cached password
@@ -45,14 +63,17 @@ ocl() {
 
   # Prompt for password
   local new_password
-  read -rs "new_password?Password for $user: "
+  if [[ -n ${ZSH_VERSION-} ]]; then
+    read -rs "new_password?Password for $user: "
+  else
+    read -rsp "Password for $user: " new_password
+  fi
   echo
 
   oc login -u "$user" -p "$new_password" "$@"
   if [[ $? -eq 0 ]]; then
     # Replace cached password only after a successful login with the new one
-    security delete-generic-password -a "$user" -s "$keychain_service" &>/dev/null
-    security add-generic-password -a "$user" -s "$keychain_service" -w "$new_password"
+    _ocl_secret_set "$user" "$keychain_service" "$new_password"
   else
     return 1
   fi

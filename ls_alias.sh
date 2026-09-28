@@ -1,6 +1,11 @@
 #!/bin/bash
 
-alias ls='ls -G'  # Colorised output
+# Colorised output (-G is color on BSD/macOS, but "no group" on GNU)
+if [[ $OSTYPE == 'darwin'* ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+fi
 alias ll='ls -l'  # Long output
 alias la='ls -la' # Long with all
 alias lla='ls -la'

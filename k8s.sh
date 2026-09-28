@@ -63,7 +63,9 @@ fi
 # complete -F __start_kubectl k
 
 # Colorization for `kubectl diff`
-export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
+if command -v colordiff &> /dev/null; then
+    export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
+fi
 
 # # Configure the KUBECONFIG environment variable
 # KUBECONFIGS_PATH="$HOME/.kube/configs"
