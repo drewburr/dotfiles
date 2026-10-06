@@ -18,5 +18,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
     # Don't use the included python
-    export ANSIBLE_PYTHON_INTERPRETER="/usr/local/bin/python"
+    if [ -x "$HOMEBREW_PREFIX/bin/python3" ]; then
+        export ANSIBLE_PYTHON_INTERPRETER="$HOMEBREW_PREFIX/bin/python3"
+    fi
 fi

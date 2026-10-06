@@ -1,11 +1,13 @@
-# Check if Homebrew is installed
-if command -v brew &> /dev/null; then
-    # Source Homebrew based on x86 mode
-    if [ "$(sysctl -n sysctl.proc_translated)" = "1" ]; then
-        local brew_path="/opt/homebrew/bin"
-    else
-        local brew_path="/usr/local/homebrew/bin"
-    fi
-    export PATH="${brew_path}:${PATH}"
-    export PATH="/usr/local/homebrew/bin:${PATH}"
+#!/bin/bash
+
+# Locate Homebrew: /opt/homebrew on Apple Silicon, /usr/local on Intel.
+# Exports HOMEBREW_PREFIX for other dotfiles to use.
+if [[ -z ${HOMEBREW_PREFIX-} ]]; then
+    for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+        if [[ -x $brew_bin ]]; then
+            eval "$($brew_bin shellenv)"
+            break
+        fi
+    done
+    unset brew_bin
 fi

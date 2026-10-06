@@ -4,10 +4,12 @@ My personal dotfiles. Currently this is setup to support Bash, as is expected to
 
 ## Setup
 
-To utilize this entire repository, clone and store in a safe location (example: `~/dotfiles`). Afterwards, append the below script to your `~/.bashrc` file.
+To utilize this entire repository, clone and store in a safe location (example: `~/dotfiles`). Afterwards, append the below script to your `~/.bashrc` or `~/.zshrc` file.
 
 ```bash
 export DOTFILES_PATH=~/dotfiles # Change this if needed
+# homebrew.sh sets HOMEBREW_PREFIX, which other files rely on, so load it first
+source $DOTFILES_PATH/homebrew.sh
 for item in $(find $DOTFILES_PATH -maxdepth 1 -name "*.sh"); do
   # Make it executable
   chmod +x $item

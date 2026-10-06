@@ -10,8 +10,8 @@
 if [[ -n ${BASH_VERSION-} ]] && [[ -z ${BASH_COMPLETION_VERSINFO-} ]]; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
         . /usr/share/bash-completion/bash_completion
-    elif [ -f /usr/local/etc/profile.d/bash_completion.sh ]; then
-        . /usr/local/etc/profile.d/bash_completion.sh
+    elif [ -f "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh" ]; then
+        . "$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
     elif [ -f /etc/profile.d/bash_completion.sh ]; then
         . /etc/profile.d/bash_completion.sh
     fi
@@ -26,7 +26,7 @@ fi
 
 # Set compat dir for macOS compatibility
 if [[ -z $BASH_COMPLETION_COMPAT_DIR ]]; then
-    export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
+    export BASH_COMPLETION_COMPAT_DIR="$HOMEBREW_PREFIX/etc/bash_completion.d"
 fi
 
 # Load kubectl completion using the actual binary (not alias).

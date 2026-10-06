@@ -11,10 +11,10 @@ PATH=$PATH:$HOME/Library/Python/3.10/bin:$HOME/Library/Python/3.11/bin
 PATH=$PATH:$HOME/Library/instantclient_19_3
 
 # libpq (psql)
-PATH=$PATH:/usr/local/opt/libpq/bin
+[ -d "$HOMEBREW_PREFIX/opt/libpq/bin" ] && PATH=$PATH:$HOMEBREW_PREFIX/opt/libpq/bin
 
 # coreutils
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+[ -d "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" ] && PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
 
 # GO
 if command -v go &> /dev/null; then

@@ -1,25 +1,12 @@
 #!/bin/bash
 
-# From homebrew:
-#
-# A CA file has been bootstrapped using certificates from the system
-# keychain. To add additional certificates, place .pem files in
-#   /usr/local/etc/openssl@1.1/certs
-#
-# and run
-#   /usr/local/opt/openssl@1.1/bin/c_rehash
-#
-# openssl@1.1 is keg-only, which means it was not symlinked into /usr/local,
-# because macOS provides LibreSSL.
-#
-if [[ $OSTYPE == 'darwin'* ]]; then
-    # If you need to have openssl@1.1 first in your PATH, run:
-    export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-    #
-    # For compilers to find openssl@1.1 you may need to set:
-    export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-    export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
-    #
-    # For pkg-config to find openssl@1.1 you may need to set:
-    export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+# Homebrew's openssl@3 is keg-only (macOS ships LibreSSL), so expose it
+# explicitly for the shell and for compilers/pkg-config.
+OPENSSL_PREFIX="$HOMEBREW_PREFIX/opt/openssl@3"
+if [[ $OSTYPE == 'darwin'* ]] && [ -d "$OPENSSL_PREFIX" ]; then
+    export PATH="$OPENSSL_PREFIX/bin:$PATH"
+    export LDFLAGS="-L$OPENSSL_PREFIX/lib"
+    export CPPFLAGS="-I$OPENSSL_PREFIX/include"
+    export PKG_CONFIG_PATH="$OPENSSL_PREFIX/lib/pkgconfig"
 fi
+unset OPENSSL_PREFIX
