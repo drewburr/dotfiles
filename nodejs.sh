@@ -37,12 +37,13 @@ npx() {
     npx $@
 }
 
-# Display npm prefix asynchronously to avoid blocking shell startup
-(
+# Display npm prefix asynchronously to avoid blocking shell startup.
+# The outer subshell detaches the job portably (zsh's `&!` breaks bash).
+( (
     if [ -s "$NVM_SCRIPT" ]; then
         . "$NVM_SCRIPT" --no-use 2>/dev/null
         if command -v npm &> /dev/null; then
             command npm config get prefix 2>/dev/null
         fi
     fi
-) >/dev/null 2>&1 &!
+) >/dev/null 2>&1 & )
